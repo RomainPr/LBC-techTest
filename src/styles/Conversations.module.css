@@ -1,3 +1,7 @@
+.loader {
+    background: inherit;
+  }
+
 .conversation {
   background: #fff;
   margin: 0.5rem;
@@ -79,4 +83,9 @@
 .conversationContent button:hover {
     background-color: #c0562a;
     transition: .2s all ease-in-out;
+}
+
+.conversation .message {
+    padding: 2em;
+    text-align: right;
 }

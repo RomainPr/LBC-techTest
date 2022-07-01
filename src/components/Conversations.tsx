@@ -8,16 +8,15 @@ import styles from '../styles/Conversations.module.css';
 const Conversations = ({ user }) => {
   const [conversations, setConversationsList] = useState([]);
 
-  const getConversations = async () => {
-    const { data } = await axios.get(
-      `http://localhost:3005/conversations/${user.id}`
-    );
-    setConversationsList(data);
-  };
-
   useEffect(() => {
+    const getConversations = async () => {
+      const { data } = await axios.get(
+        `http://localhost:3005/conversations/${user.id}`
+      );
+      setConversationsList(data);
+    };
     getConversations();
-  }, []);
+  }, [user.id]);
 
   moment.locale('fr');
   const userid = `--${user.id}`;
@@ -25,21 +24,21 @@ const Conversations = ({ user }) => {
 
   return (
     <>
-      {conversations.map((conversation) => (
-        <div key={conversation.id} className={styles.conversation}>
-          <div className={styles.conversationHeader}>
-            <span className={`${styles.avatar} ${styles[userid]}`}>
-              {userNameShort}
-            </span>
-            <div className={styles.conversationDescription}>
-              <p>
-                {conversations.length > 1 ? 'Conversations' : 'Conversation'} de{' '}
-                <strong>{user.nickname}</strong>
-              </p>
-            </div>
+      <div className={styles.conversation}>
+        <div className={styles.conversationHeader}>
+          <span className={`${styles.avatar} ${styles[userid]}`}>
+            {userNameShort}
+          </span>
+          <div className={styles.conversationDescription}>
+            <p>
+              {conversations.length > 1 ? 'Conversations' : 'Conversation'} de{' '}
+              <strong>{user.nickname}</strong>
+            </p>
           </div>
+        </div>
 
-          <div className={styles.conversationContent}>
+        {conversations.map((conversation) => (
+          <div key={conversation.id} className={styles.conversationContent}>
             <div className={styles.content}>
               <div>
                 <p>
@@ -66,8 +65,8 @@ const Conversations = ({ user }) => {
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };

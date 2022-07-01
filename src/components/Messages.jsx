@@ -6,7 +6,18 @@ const Messages = ({ userId, id, nickname }) => {
   const [messagesList, setMessagesList] = useState([]);
   const [userConversation, setUserConversation] = useState([]);
 
-  const renderedMessages = messagesList.map((message) => message.body);
+  const filteredRecipientMessage = messagesList.filter(
+    ({ authorId }) => userId === authorId.toString()
+  );
+  const filteredSenderMessage = messagesList.filter(
+    ({ authorId }) => userId !== authorId.toString()
+  );
+
+  const res = messagesList.filter((array_el) => {
+    return userConversation.find((another_el) => {
+      return another_el.senderId === array_el.authorId
+    });
+  })
 
   useEffect(() => {
     axios
@@ -24,12 +35,18 @@ const Messages = ({ userId, id, nickname }) => {
 
   return (
     <div className={styles.conversation}>
-      {userConversation.map((conversation) => (
-        <div key={conversation.id}>
-          <p>{conversation.recipientNickname}</p>
-          <p>{renderedMessages}</p>
+      <>
+        <div>
+          {filteredSenderMessage.map((message) => (
+            <p key={message.id}>{message.body}</p>
+          ))}
         </div>
-      ))}
+        <div>
+          {filteredRecipientMessage.map((message) => (
+            <p key={message.id}>{message.body}</p>
+          ))}
+        </div>
+      </>
     </div>
   );
 };

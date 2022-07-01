@@ -1,0 +1,82 @@
+.conversation {
+  background: #fff;
+  margin: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 40px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.conversation p {
+    margin: 0;
+}
+
+.conversationHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.avatar {
+    border-radius: 50%;
+    background: red;
+    margin-right: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.--1 {
+    background: yellow;
+}
+
+.--2 {
+    background: green;
+}
+
+.--3 {
+    background: violet;
+}
+
+.--4 {
+    background: beige;
+}
+
+.conversationContent {
+    margin: 1em;
+}
+
+.conversationContent .content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8em;
+    padding-bottom: 0.3em;
+}
+
+.conversationFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.conversationContent button {
+    background-color: #ff6e14;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-weight: bold;
+    padding: 1em;
+    border-radius: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .2s all ease-in-out;
+}
+
+.conversationContent button:hover {
+    background-color: #c0562a;
+    transition: .2s all ease-in-out;
+}

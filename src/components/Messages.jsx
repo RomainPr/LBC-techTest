@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/Conversations.module.css';
 
-const Messages = ({ userId, id, nickname }) => {
+const Messages = ({ id }) => {
   const [messagesList, setMessagesList] = useState([]);
   const [userConversation, setUserConversation] = useState([]);
 
   const filteredRecipientMessage = messagesList.filter(
-    ({ authorId }) => userId === authorId.toString()
+    ({ authorId }) => id === authorId.toString()
   );
   const filteredSenderMessage = messagesList.filter(
-    ({ authorId }) => userId !== authorId.toString()
+    ({ authorId }) => id !== authorId.toString()
   );
 
   const res = messagesList.filter((array_el) => {
@@ -21,11 +21,11 @@ const Messages = ({ userId, id, nickname }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3005/conversations/${userId}`)
+      .get(`http://localhost:3005/conversations/${id}`)
       .then((response) => {
         setUserConversation(response.data);
       });
-  }, [userId]);
+  }, [id]);
 
   useEffect(() => {
     axios.get(`http://localhost:3005/messages/${id}`).then((response) => {

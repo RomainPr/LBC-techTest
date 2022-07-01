@@ -60,7 +60,7 @@ const Conversations = ({ user }) => {
                 </p>
               </div>
               <div>
-                <Link href={`/discussion/${conversation.id}`}>
+                <Link href={`/conversation/${conversation.id}`}>
                   <button>Voir la conversation</button>
                 </Link>
               </div>

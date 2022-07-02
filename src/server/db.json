@@ -23,6 +23,20 @@
       "senderId": 4,
       "senderNickname": "Elodie",
       "lastMessageTimestamp": 1625648667
+    },
+    {
+      "recipientId": "2",
+      "recipientNickname": "Jeremie",
+      "senderId": 5,
+      "senderNickname": "Romain",
+      "id": 4
+    },
+    {
+      "recipientId": "3",
+      "recipientNickname": "Patrick",
+      "senderId": 5,
+      "senderNickname": "Romain",
+      "id": 5
     }
   ],
   "messages": [
@@ -48,11 +62,18 @@
       "body": "Bonjour c'est le troisième message de la première conversation"
     },
     {
-      "id": 4,
-      "conversationId": 2,
-      "timestamp": 1620284667,
-      "authorId": 2,
-      "body": "Bonjour c'est le premier message de la seconde conversation"
+      "authorId": 1,
+      "body": "Coucou",
+      "conversationId": 1,
+      "timestamp": 1656804569,
+      "id": 4
+    },
+    {
+      "authorId": 5,
+      "body": "coucou",
+      "conversationId": 5,
+      "timestamp": 1656805003,
+      "id": 5
     }
   ],
   "users": [

@@ -3,70 +3,112 @@ import 'moment/locale/fr';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import styles from '../styles/Conversations.module.css';
 
-const Conversations = ({ user }) => {
-  const [conversations, setConversationsList] = useState([]);
+import data from '../server/db.json';
+
+import Modal from './Modal';
+
+import styles from '../styles/Conversations.module.css';
+import modalStyles from '../styles/Modal.module.css';
+
+const Conversations = ({ allUsers }) => {
+  const [conversations, setConversationsList] = useState(data.conversations);
+  const [ShowCreateConversation, setShowCreateConversation] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState('');
+  const [selectedUserName, setSelectedUserName] = useState('');
 
   useEffect(() => {
-    const getConversations = async () => {
-      const { data } = await axios.get(
-        `http://localhost:3005/conversations/${user.id}`
-      );
-      setConversationsList(data);
-    };
-    getConversations();
-  }, [user.id]);
+    setConversationsList(data.conversations);
+  }, []);
 
   moment.locale('fr');
-  const userid = `--${user.id}`;
-  const userNameShort = user.nickname.charAt(0);
+
+  const onSelectUser = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedUserName(e.target.options[e.target.selectedIndex].text);
+    setSelectedUserId(e.target.value);
+  };
+
+  const onCreateConversation = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    await axios.post(`http://localhost:3005/conversations/${selectedUserId}`, {
+      recipientId: selectedUserId,
+      recipientNickname: selectedUserName,
+      senderId: 5,
+      senderNickname: 'Romain',
+    });
+    setSelectedUserId('');
+    setShowCreateConversation(false);
+  };
 
   return (
     <>
-      <div className={styles.conversation}>
-        <div className={styles.conversationHeader}>
-          <span className={`${styles.avatar} ${styles[userid]}`}>
-            {userNameShort}
-          </span>
-          <div className={styles.conversationDescription}>
-            <p>
-              {conversations.length > 1 ? 'Conversations' : 'Conversation'} de{' '}
-              <strong>{user.nickname}</strong>
-            </p>
-          </div>
-        </div>
-
-        {conversations.map((conversation) => (
-          <div key={conversation.id} className={styles.conversationContent}>
+      <div className={styles.createConversation}>
+        <button
+          className={styles.buttonConversation}
+          onClick={() => setShowCreateConversation(true)}
+        >
+          Créer une nouvelle conversation
+        </button>
+      </div>
+      {conversations.map((conversation) => (
+        <div key={conversation.id} className={styles.conversation}>
+          <div className={styles.conversationContent}>
             <div className={styles.content}>
+              <span
+                className={`${styles.avatar} ${
+                  styles[conversation.senderNickname]
+                }`}
+              >
+                {conversation.senderNickname.charAt(0)}
+              </span>
               <div>
                 <p>
-                  Avec{' '}
-                  <strong>
-                    {conversation.recipientNickname === user.nickname
-                      ? conversation.senderNickname
-                      : conversation.recipientNickname}
-                  </strong>
+                  Conversation entre{' '}
+                  <strong>{conversation.senderNickname}</strong> et{' '}
+                  <strong>{conversation.recipientNickname}</strong>
                 </p>
-                <p>
-                  Dernier message reçu le{' '}
-                  <strong>
-                    {moment(conversation.lastMessageTimestamp, 'X').format(
-                      'DD MMMM'
-                    )}
-                  </strong>
-                </p>
-              </div>
-              <div>
-                <Link href={`/conversation/${conversation.id}`}>
-                  <button>Voir la conversation</button>
-                </Link>
+                {conversation.lastMessageTimestamp && (
+                  <p>
+                    Dernier message reçu le{' '}
+                    <strong>
+                      {moment.unix(conversation.lastMessageTimestamp).format(
+                        ("HH MMMM")
+                      )}
+                    </strong>
+                  </p>
+                )}
               </div>
             </div>
+            <div>
+              <Link href={`/conversation/${conversation.id}`}>
+                <button className="buttonLBC">Voir la conversation</button>
+              </Link>
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+      {ShowCreateConversation ? (
+        <Modal
+          className={modalStyles.show}
+          title="Créer une nouvelle conversation"
+          onClose={() => setShowCreateConversation(false)}
+          onValidate={onCreateConversation}
+        >
+          <h2>Avec qui souhaitez-vous créer une conversation ?</h2>
+          <select value={selectedUserId} onChange={onSelectUser} className={modalStyles.select}>
+            <option value="" disabled>
+              Veuillez sélectionner un utilisateur
+            </option>
+            {allUsers.map((user: any) => (
+              <option key={user.id} value={user.id}>
+                {user.nickname}
+              </option>
+            ))}
+          </select>
+        </Modal>
+      ) : null}
     </>
   );
 };

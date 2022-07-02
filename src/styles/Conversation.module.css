@@ -1,10 +1,14 @@
 .container {
     min-height: 100vh;
     padding: 0 0.5rem;
+    overflow: hidden;
+}
+
+#__next {
+    overflow: hidden;
 }
 
 .conversation {
-    margin: 7vh auto;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -12,16 +16,4 @@
 
 .main {
     width: 900px;
-}
-
-.conversationHeader {
-    border-top: 1px solid #000;
-    padding: 1em;
-    margin-bottom: 1em;
-    background-color: #e5e5e5;
-}
-
-.conversationHeader p {
-    margin: 0;
-    font-weight: bold;
 }

@@ -26,11 +26,15 @@
   align-items: flex-end;
 }
 
-.messages p {
+.message {
   text-align: right;
   padding: 1em;
   border-radius: 20px;
   margin: 0;
+}
+
+.messageInnerTest {
+  text-align: center;
 }
 
 .owner {

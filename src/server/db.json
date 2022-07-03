@@ -62,17 +62,17 @@
       "body": "Bonjour c'est le troisième message de la première conversation"
     },
     {
-      "authorId": 1,
-      "body": "Coucou",
-      "conversationId": 1,
-      "timestamp": 1656804569,
-      "id": 4
+      "id": 4,
+      "conversationId": 2,
+      "timestamp": 1620284667,
+      "authorId": 2,
+      "body": "Bonjour c'est le premier message de la seconde conversation"
     },
     {
-      "authorId": 5,
-      "body": "coucou",
-      "conversationId": 5,
-      "timestamp": 1656805003,
+      "authorId": 1,
+      "body": "Hello",
+      "conversationId": 2,
+      "timestamp": 1656809918,
       "id": 5
     }
   ],

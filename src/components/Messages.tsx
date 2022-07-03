@@ -3,15 +3,27 @@ import moment, { max } from 'moment';
 import axios from 'axios';
 import { Send } from 'react-feather';
 
+import Error from '../components/Error';
+
 import styles from '../styles/Messages.module.css';
 
 const Messages = ({ messages, conversationId, conversation }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [messagesList, setMessagesList] = useState(messages);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    setMessagesList(messages);
+  }, [messages]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const formattedDate = Math.floor(Date.now() / 1000);
-  console.log(moment.unix(formattedDate).format('HH MMMM'));
 
   const newMessages = messages.map((message) => {
     return {
@@ -27,8 +39,6 @@ const Messages = ({ messages, conversationId, conversation }) => {
     };
   });
 
-  console.log(newMessages);
-
   const sortedMessages = newMessages
     .sort((convA: any, convB: any) => {
       const firstDate = convA.timestamp;
@@ -42,24 +52,28 @@ const Messages = ({ messages, conversationId, conversation }) => {
     })
     .reverse();
 
-  useEffect(() => {
-    setMessagesList(messages);
-  }, [messages]);
-
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await axios.post(`http://localhost:3005/messages/${conversationId}`, {
-      authorId: conversation.senderId,
-      body: inputValue,
-      conversationId: Number(conversationId),
-      timestamp: formattedDate,
-    });
+    await axios
+      .post(`http://localhost:3005/messages/${conversationId}`, {
+        authorId: conversation.senderId,
+        body: inputValue,
+        conversationId: Number(conversationId),
+        timestamp: formattedDate,
+      })
+      .catch((error) => {
+        setError(error);
+      });
     setInputValue('');
   };
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -76,10 +90,9 @@ const Messages = ({ messages, conversationId, conversation }) => {
         <div className={styles.messages}>
           {sortedMessages.map((message: any) => (
             <div key={message.id}>
-              <p>{message.nickName}</p>
-              <p>{moment.unix(message.timestamp).format('HH MMMM')}</p>
+              <p className={styles.message}>{message.nickName}</p>
               <p
-                className={`${
+                className={`${styles.messageInnerTest} ${styles.message} ${
                   conversation.senderId === message.authorId
                     ? styles.owner
                     : styles.recipient

@@ -12,13 +12,14 @@
 }
 
 .conversation p {
-    margin: 0 0 0.5em;
+    margin: 0 0 0 1em;
 }
 
 .conversationContent {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
 }
 
 .conversation .content {
@@ -28,6 +29,10 @@
     justify-content: center;
     font-size: 0.8em;
     padding-bottom: 0.3em;
+}
+
+.conversationInformation {
+    margin-bottom: 0.3em;
 }
 
 .conversationHeader {
@@ -84,6 +89,16 @@
     transition: .2s background-color ease-in-out;
 }
 
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.actions button {
+    margin: 1em;
+}
+
 @media screen and (max-width: 576px) {
     .conversationHeader {
         margin-bottom: 0.5em;
@@ -91,6 +106,7 @@
     .avatar {
         width: 50px;
         height: 50px;
+        margin: 0 0 1em;
     }
     .conversation {
         padding: 1em;
@@ -100,5 +116,6 @@
     }
     .conversationContent {
         margin: 1.5em 0;
+        justify-content: center;
     }
 }

@@ -63,7 +63,7 @@ const Conversations = ({ allUsers }) => {
               >
                 {conversation.senderNickname.charAt(0)}
               </span>
-              <div>
+              <div className={styles.conversationInformation}>
                 <p>
                   Conversation entre{' '}
                   <strong>{conversation.senderNickname}</strong> et{' '}

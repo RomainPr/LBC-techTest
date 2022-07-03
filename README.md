@@ -25,7 +25,7 @@ Finally, launch the app by running the command :
 npm run dev
 `
 
-# Approcah :
+# Approach :
 
 The idea was to make things easy so here are the main steps I followed to achieve my goal !
 

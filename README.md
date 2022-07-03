@@ -7,13 +7,13 @@ Users can also create new conversations with the user of their choice.
 
 # Setup / Installation :
 
-First, clone this repository in a folder of your choice : 
+First, clone this repository in a folder of your choice and install the dependencies : 
 
 `
 npm install
 `
 
-Then, launch the server by running th command : 
+Then, launch the server by running the command : 
 
 `
 npm run start-server

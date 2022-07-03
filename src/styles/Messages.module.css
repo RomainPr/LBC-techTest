@@ -4,7 +4,6 @@
   justify-content: space-between;
   border-top: 1px solid #000;
   padding: 1em;
-  margin-bottom: 1em;
   background-color: #e5e5e5;
 }
 
@@ -14,7 +13,7 @@
 }
 
 .messagesContainer {
-  padding: 1.5em 1.5em 0 ;
+  padding: 1.5em 1.5em;
   overflow-y: scroll;
   max-height: 700px;
 }

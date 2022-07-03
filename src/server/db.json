@@ -23,13 +23,6 @@
       "senderId": 4,
       "senderNickname": "Elodie",
       "lastMessageTimestamp": 1625648667
-    },
-    {
-      "recipientId": "2",
-      "recipientNickname": "Jeremie",
-      "senderId": 5,
-      "senderNickname": "Romain",
-      "id": 4
     }
   ],
   "messages": [
@@ -60,13 +53,6 @@
       "timestamp": 1620284667,
       "authorId": 2,
       "body": "Bonjour c'est le premier message de la seconde conversation"
-    },
-    {
-      "authorId": 1,
-      "body": "Coucou",
-      "conversationId": 1,
-      "timestamp": 1656841589,
-      "id": 5
     }
   ],
   "users": [

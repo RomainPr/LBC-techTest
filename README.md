@@ -12,6 +12,7 @@ First, clone this repository in a folder of your choice :
 `
 npm i
 `
+
 Then, launch the server by running th command : 
 
 `

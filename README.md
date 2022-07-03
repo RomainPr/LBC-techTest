@@ -10,7 +10,7 @@ Users can also create new conversations with the user of their choice.
 First, clone this repository in a folder of your choice : 
 
 `
-npm i
+npm install
 `
 
 Then, launch the server by running th command : 
@@ -25,37 +25,43 @@ Finally, launch the app by running the command :
 npm run dev
 `
 
-# Exercice :
+# Approcah :
 
-- Display a list of all the conversations
-- Allow the user to select a conversation
-  - Inside the conversation, there is a list of all the messages between these two users.
-  - As a user, you can type and send new messages in this conversation
+The idea was to make things easy so here are the main steps I followed to achieve my goal !
 
-**As your application can be used by millions of users, make sure to provide some robust safety guards.**
+- Fetching all the conversations from the `db.json` in the `index.tsx` and render a component `Conversations.tsx` that handle the UI and render the conversations listing.
+- In the `Conversations.tsx` there is a button which redirect users to a page which handle the conversation selected with the route `/conversation/:id` when clicked.
+- The `conversationId.tsx` page fetch the messages according to the id of the current conversation that we get from the router query and it also get the conversation object. Finally it renders a component `Messages.tsx` which handle the UI. 
+- Bonus : In the homepage there is a button to create a conversation which show a nice Modal to select the user we want and then create the conversation accordingly :)
 
-### Sketches :
+# Status :
 
-Obvisouly, it is up to you to make something nice and pretty, you are free to design it the way you like. The sketches are here to give you an idea on how it should look.
+This the V1 of the application. 
+
+In the V2 I'm planning to make these adjustements : 
+
+- Inserting the date of the last message received in the list of conversations and in the conversation itself
+- Handle the potential server crash and show message to the users
+- Do more testings !
 
 <details>
   <summary>Click to see the sketches</summary>
   
 Mobile list :
 
-![](./sketches/list-mobile.jpg)
+![](./screenshots/screenshot_conversationsList_Mobile.png)
 
 Desktop list :
 
-![](./sketches/list-desktop.jpg)
+![](./screenshots/screenshot_conversationsList_Desktop.png)
 
 Mobile conversation :
 
-![](./sketches/conv-mobile.jpg)
+![](./screenshots/screenshot_messagesList_Mobile.png)
 
 Desktop conversation :
 
-![](./sketches/conv-desktop.jpg)
+![](./screenshots/screenshot_messagesList_Desktop.png)
 
 </details>
 
@@ -66,24 +72,3 @@ You can find the API swagger file in `docs/api-swagger.yaml`.
 For a better readibility, you can view it on [https://leboncoin.tech/frontend-technical-test/](https://leboncoin.tech/frontend-technical-test/).
 
 ---
-
-## Bonus 1 :
-
-We provide some conversation samples, but can you improve the app so the user can now create new conversations ?
-
-## Bonus 2 :
-
-Our infrastructure is a bit shaky.. Sometimes the servers are crashing. “It’s not you, it’s me”, but maybe you can display something nice to warn the user and handle it gracefully.
-
-## Do you want to make the app even better ?
-
-Feel free to make as many improvements as you like.
-We love creativity and technical challenges.
-
-If you are out of ideas, here are some thoughts :
-
-- As we want to reach our users anywhere, we need to make sure the app is performing well. What can you do to make it really fast ?
-
-- Our goal is to support everybody in the country, including people with disabilities. As a good citizen and a good developer, can you make sure the app is accessible for everyone ?
-
-- We all love to relax after a hard day’s work. It would be a shame if we didn’t feel confident enough about the upcoming automatic deployment. Are you sure everything has been tested thoroughly ?

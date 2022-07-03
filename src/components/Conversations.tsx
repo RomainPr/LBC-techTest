@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import data from '../server/db.json';
 
+import Error from '../components/Error';
 import Modal from './Modal';
 
 import styles from '../styles/Conversations.module.css';
@@ -16,6 +17,7 @@ const Conversations = ({ allUsers }) => {
   const [ShowCreateConversation, setShowCreateConversation] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedUserName, setSelectedUserName] = useState('');
+  const [error, setError] = useState();
 
   useEffect(() => {
     setConversationsList(data.conversations);
@@ -32,15 +34,23 @@ const Conversations = ({ allUsers }) => {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    await axios.post(`http://localhost:3005/conversations/${selectedUserId}`, {
-      recipientId: selectedUserId,
-      recipientNickname: selectedUserName,
-      senderId: 5,
-      senderNickname: 'Romain',
-    });
+    await axios
+      .post(`http://localhost:3005/conversations/${selectedUserId}`, {
+        recipientId: selectedUserId,
+        recipientNickname: selectedUserName,
+        senderId: 5,
+        senderNickname: 'Romain',
+      })
+      .catch((error) => {
+        setError(error);
+      });
     setSelectedUserId('');
     setShowCreateConversation(false);
   };
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -73,9 +83,9 @@ const Conversations = ({ allUsers }) => {
                   <p>
                     Dernier message reçu le{' '}
                     <strong>
-                      {moment.unix(conversation.lastMessageTimestamp).format(
-                        ("HH MMMM")
-                      )}
+                      {moment
+                        .unix(conversation.lastMessageTimestamp)
+                        .format('HH MMMM')}
                     </strong>
                   </p>
                 )}
@@ -97,7 +107,11 @@ const Conversations = ({ allUsers }) => {
           onValidate={onCreateConversation}
         >
           <h2>Avec qui souhaitez-vous créer une conversation ?</h2>
-          <select value={selectedUserId} onChange={onSelectUser} className={modalStyles.select}>
+          <select
+            value={selectedUserId}
+            onChange={onSelectUser}
+            className={modalStyles.select}
+          >
             <option value="" disabled>
               Veuillez sélectionner un utilisateur
             </option>

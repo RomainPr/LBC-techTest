@@ -1,13 +1,28 @@
 # LBC-techTest
 
-# Context :
+# About the project
 
-At leboncoin, our users can share messages about a transaction, or ask for informations about any products.
+This project is made to allow users to see a list of conversations and interact in each conversations by sending new messages.
+Users can also create new conversations with the user of their choice.
 
-Your job is to create the interface to consult those messages.
-The interface needs to work on both desktop & mobile devices.
+# Setup / Installation :
 
-In addition to your code, a README explaining your thought process and your choices would be appreciated.
+First, clone this repository in a folder of your choice : 
+
+`
+npm i
+`
+Then, launch the server by running th command : 
+
+`
+npm run start-server
+`
+
+Finally, launch the app by running the command : 
+
+`
+npm run dev
+`
 
 # Exercice :
 

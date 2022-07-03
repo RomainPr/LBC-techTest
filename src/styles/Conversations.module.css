@@ -12,7 +12,7 @@
 }
 
 .conversation p {
-    margin: 0 0 0 1em;
+    margin: 0;
 }
 
 .conversationContent {
@@ -33,6 +33,14 @@
 
 .conversationInformation {
     margin-bottom: 0.3em;
+}
+
+.conversationInformation p:first-child {
+    font-size: 1.2em;
+}
+
+.conversationInformation p:last-child {
+    font-size: 0.9em;
 }
 
 .conversationHeader {
@@ -106,13 +114,15 @@
     .avatar {
         width: 50px;
         height: 50px;
-        margin: 0 0 1em;
     }
     .conversation {
-        padding: 1em;
+        padding: 0.2em;
     }
     .conversation p {
         font-size: 0.9em;
+    }
+    .conversationInformation {
+        text-align: center;
     }
     .conversationContent {
         margin: 1.5em 0;

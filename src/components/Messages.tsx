@@ -9,6 +9,7 @@ import styles from '../styles/Messages.module.css';
 
 const Messages = ({ messages, conversationId, conversation }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const messagesRef = useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [messagesList, setMessagesList] = useState(messages);
   const [error, setError] = useState();
@@ -16,12 +17,6 @@ const Messages = ({ messages, conversationId, conversation }) => {
   useEffect(() => {
     setMessagesList(messages);
   }, [messages]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   const formattedDate = Math.floor(Date.now() / 1000);
 
@@ -52,6 +47,15 @@ const Messages = ({ messages, conversationId, conversation }) => {
     })
     .reverse();
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+    if (messagesRef.current) {
+      messagesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [sortedMessages]);
+
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -78,7 +82,7 @@ const Messages = ({ messages, conversationId, conversation }) => {
   return (
     <>
       <div className={styles.messagesHeader}>
-        <p>{conversation && conversation.senderNickname}</p>
+        <p>{conversation && conversation.senderNickname} {conversation.senderNickname === 'Romain' ? '- Vous' : ''}</p>
         {conversation && conversation.lastMessageTimestamp && (
           <p>
             Dernier message le{' '}
@@ -102,6 +106,7 @@ const Messages = ({ messages, conversationId, conversation }) => {
               </p>
             </div>
           ))}
+          <div ref={messagesRef} />
         </div>
         <div className={styles.formContainer}>
           <form className={styles.form} onSubmit={onSubmit}>

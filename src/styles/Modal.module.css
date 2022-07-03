@@ -63,6 +63,11 @@
   text-align: center;
 }
 
+.customeModalContent h2 {
+  font-weight: normal;
+  font-size: 1.4em;
+}
+
 .customModalFooter {
   text-align: center;
   padding: 2em;
@@ -71,6 +76,7 @@
 .customModalConfirmationButton {
   font-family: 'Poppins';
   font-size: 1em;
+  font-weight: bold;
   color: #fff;
   text-transform: uppercase;
   border: none;
